@@ -2,6 +2,13 @@ module Units exposing (..)
 
 
 
+{-| Unit declarations.
+These should be hidden in your library,
+be sure not to export construct of your unit type.
+   unit         The unit type
+   value        The value to be stored and used in the (:::) constructor
+   base         The base value all your Units can be converted to.
+-}
 type alias Unit unit value base =
   { unit : unit
   , wrap : base -> value
@@ -9,12 +16,18 @@ type alias Unit unit value base =
   }
 
 
+{-| Values passed around in your program.
+unit, value and base like above.
+-}
 type alias Value unit value base =
   { value : value
   , unit : Unit unit value base
   }
 
 
+{-| Given some value v and a Unit construct a Value.
+What v means in terms of base, is defined by the Unit
+-}
 (:::) : v -> Unit u v b -> Value u v b
 (:::) value unit =
   { value = value
@@ -22,6 +35,8 @@ type alias Value unit value base =
   }
 
 
+{-| Convert a Value to a different unit.
+-}
 as' : Value u1 v1 b -> Unit u2 v2 b -> Value u2 v2 b
 as' value unit =
   { value = unit.wrap <| value.unit.unwrap value.value
@@ -29,9 +44,14 @@ as' value unit =
   }
 
 
+{-| Extract the base unit of a Value
+-}
 toBase : Value u v b -> b
 toBase value = value.unit.unwrap value.value
 
+
+{-| Map over the base of a Value. 
+-}
 map
    : (b -> b) 
   -> Value u1 v1 b
@@ -41,6 +61,12 @@ map fn v1 =
   , unit = v1.unit
   }
 
+
+{-| Map over the bases of Values
+The resulting Value has the Unit of the first argument.
+This is so make partial application more convenient:
+`map2 fn v1` always has the unit of v1, no matter what you apply to it. 
+-}
 map2 
    : (b -> b -> b) 
   -> Value u1 v1 b 
@@ -53,7 +79,7 @@ map2 fn v1 v2 =
   }
 
 
-map3 
+map3
    : (b -> b -> b -> b) 
   -> Value u1 v1 b 
   -> Value u2 v2 b 
