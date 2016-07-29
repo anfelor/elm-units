@@ -2,6 +2,22 @@ module Units exposing (..)
 
 
 
+{-| 
+
+Create Values of a certain unit, that abstract over a base.
+
+## Types
+@docs Value, Unit
+
+# Constructor, conversions and "destructor"
+@docs (:::), as', toBase
+
+# Maps
+@docs map, map3, map4, map5, map6
+
+-}
+
+
 {-| Unit declarations.
 These should be hidden in your library,
 be sure not to export construct of your unit type.
