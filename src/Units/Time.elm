@@ -1,4 +1,6 @@
-module Units.Time exposing (..)
+module Units.Time exposing 
+  (Time, milliseconds, seconds, minutes, hours
+  , millisecond, second, minute, hour, every)
 
 import Units exposing (..)
 import Time

@@ -1,4 +1,5 @@
-module Units.Angle exposing (..)
+module Units.Angle exposing 
+  (Angle, degrees, radians)
 
 import Units exposing (..)
 
