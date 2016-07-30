@@ -1,0 +1,208 @@
+[
+  {
+    "name": "Units.Time",
+    "comment": " Unit definitions for Time.\n\n@docs Time, TimeUnit, every\n\n# Unit definition\nNot related to [the \"units\" in the Time module](http://package.elm-lang.org/packages/elm-lang/core/4.0.3/Time#units)\n@docs milliseconds, seconds, minutes, hours\n\n# Specific times\nThese *are* the correspondents of [the \"units\" in the Time module](http://package.elm-lang.org/packages/elm-lang/core/4.0.3/Time#units)\n@docs millisecond, second, minute, hour\n\n\n",
+    "aliases": [
+      {
+        "name": "Time",
+        "comment": " A Value for time.\nUses milliseconds internally (but use `toBase` for extracting!)\n",
+        "args": [],
+        "type": "{ value : Float, unit : Units.Time.TimeUnit }"
+      },
+      {
+        "name": "TimeUnit",
+        "comment": " The unit of time.\n",
+        "args": [],
+        "type": "Units.Unit Units.Time.TimeUnitInternal Float Float"
+      }
+    ],
+    "types": [],
+    "values": [
+      {
+        "name": "every",
+        "comment": "",
+        "type": "Units.Time.Time -> (Time.Time -> msg) -> Platform.Sub.Sub msg"
+      },
+      {
+        "name": "hour",
+        "comment": "",
+        "type": "Units.Time.Time"
+      },
+      {
+        "name": "hours",
+        "comment": "",
+        "type": "Units.Time.TimeUnit"
+      },
+      {
+        "name": "millisecond",
+        "comment": "\n  every millisecond Tick\n",
+        "type": "Units.Time.Time"
+      },
+      {
+        "name": "milliseconds",
+        "comment": "",
+        "type": "Units.Time.TimeUnit"
+      },
+      {
+        "name": "minute",
+        "comment": "",
+        "type": "Units.Time.Time"
+      },
+      {
+        "name": "minutes",
+        "comment": "",
+        "type": "Units.Time.TimeUnit"
+      },
+      {
+        "name": "second",
+        "comment": "",
+        "type": "Units.Time.Time"
+      },
+      {
+        "name": "seconds",
+        "comment": "",
+        "type": "Units.Time.TimeUnit"
+      }
+    ],
+    "generated-with-elm-version": "0.17.1"
+  },
+  {
+    "name": "Units.Angle",
+    "comment": " Unit definitions for angles.\n\n@docs Angle, AngleUnit, degrees, radians\n\n",
+    "aliases": [
+      {
+        "name": "Angle",
+        "comment": " A Value for angles.\nUses radians internally (but use `toBase` for extracting!)\n",
+        "args": [],
+        "type": "{ value : Float, unit : Units.Angle.AngleUnit }"
+      },
+      {
+        "name": "AngleUnit",
+        "comment": " The unit of angles.\n",
+        "args": [],
+        "type": "Units.Unit Units.Angle.AngleUnitInternal Float Float"
+      }
+    ],
+    "types": [],
+    "values": [
+      {
+        "name": "degrees",
+        "comment": " Construct angles as degrees.\n\n  (90 ~ degrees) : Angle\n",
+        "type": "Units.Angle.AngleUnit"
+      },
+      {
+        "name": "radians",
+        "comment": " Construct angles as radians.\n\n  (pi ~ radians) : Angle\n",
+        "type": "Units.Angle.AngleUnit"
+      }
+    ],
+    "generated-with-elm-version": "0.17.1"
+  },
+  {
+    "name": "Units",
+    "comment": " \n\nCreate Values of a certain unit, that abstract over a base.\n\n# Types\n@docs Value, Unit\n\n# Constructor, conversions and \"destructor\"\n@docs (~), as', toBase\n\n# Working with the base\n@docs map, map2, map3, map4, map5, map6\n    , onBase, onBase2, onBase3, onBase4, onBase5, onBase6\n\n",
+    "aliases": [
+      {
+        "name": "Unit",
+        "comment": " Unit declarations.\nThese should be hidden in your library,\nbe sure not to export construct of your unit type.\n   unit         The unit type\n   value        The value to be stored and used in the (~) constructor\n   base         The base value all your Units can be converted to.\n",
+        "args": [
+          "unit",
+          "value",
+          "base"
+        ],
+        "type": "{ unit : unit, wrap : base -> value, unwrap : value -> base }"
+      },
+      {
+        "name": "Value",
+        "comment": " Values passed around in your program.\nunit, value and base like above.\n",
+        "args": [
+          "unit",
+          "value",
+          "base"
+        ],
+        "type": "{ value : value, unit : Units.Unit unit value base }"
+      }
+    ],
+    "types": [],
+    "values": [
+      {
+        "name": "as'",
+        "comment": " Convert a Value to a different unit.\n\n  (90 ~ minutes) `as'` seconds\n",
+        "type": "Units.Value u1 v1 b -> Units.Unit u2 v2 b -> Units.Value u2 v2 b"
+      },
+      {
+        "name": "map",
+        "comment": " Map over the base of a Value. \n",
+        "type": "(b -> b) -> Units.Value u1 v1 b -> Units.Value u1 v1 b"
+      },
+      {
+        "name": "map2",
+        "comment": " Map over the bases of Values\nThe resulting Value has the Unit of the first argument.\nThis is so make partial application more convenient:\n`map2 fn v1` always has the unit of v1, no matter what you apply to it.\n",
+        "type": "(b -> b -> b) -> Units.Value u1 v1 b -> Units.Value u2 v2 b -> Units.Value u1 v1 b"
+      },
+      {
+        "name": "map3",
+        "comment": "",
+        "type": "(b -> b -> b -> b) -> Units.Value u1 v1 b -> Units.Value u2 v2 b -> Units.Value u3 v3 b -> Units.Value u1 v1 b"
+      },
+      {
+        "name": "map4",
+        "comment": "",
+        "type": "(b -> b -> b -> b -> b) -> Units.Value u1 v1 b -> Units.Value u2 v2 b -> Units.Value u3 v3 b -> Units.Value u4 v4 b -> Units.Value u1 v1 b"
+      },
+      {
+        "name": "map5",
+        "comment": "",
+        "type": "(b -> b -> b -> b -> b -> b) -> Units.Value u1 v1 b -> Units.Value u2 v2 b -> Units.Value u3 v3 b -> Units.Value u4 v4 b -> Units.Value u5 v5 b -> Units.Value u1 v1 b"
+      },
+      {
+        "name": "map6",
+        "comment": "",
+        "type": "(b -> b -> b -> b -> b -> b -> b) -> Units.Value u1 v1 b -> Units.Value u2 v2 b -> Units.Value u3 v3 b -> Units.Value u4 v4 b -> Units.Value u5 v5 b -> Units.Value u6 v6 b -> Units.Value u1 v1 b"
+      },
+      {
+        "name": "onBase",
+        "comment": " Apply a function to the base of a value.\n",
+        "type": "(b -> c) -> Units.Value u1 v1 b -> c"
+      },
+      {
+        "name": "onBase2",
+        "comment": " Apply a function to the bases of two values.\n",
+        "type": "(b -> b -> c) -> Units.Value u1 v1 b -> Units.Value u2 v2 b -> c"
+      },
+      {
+        "name": "onBase3",
+        "comment": "",
+        "type": "(b -> b -> b -> c) -> Units.Value u1 v1 b -> Units.Value u2 v2 b -> Units.Value u3 v3 b -> c"
+      },
+      {
+        "name": "onBase4",
+        "comment": "",
+        "type": "(b -> b -> b -> b -> c) -> Units.Value u1 v1 b -> Units.Value u2 v2 b -> Units.Value u3 v3 b -> Units.Value u4 v4 b -> c"
+      },
+      {
+        "name": "onBase5",
+        "comment": "",
+        "type": "(b -> b -> b -> b -> b -> c) -> Units.Value u1 v1 b -> Units.Value u2 v2 b -> Units.Value u3 v3 b -> Units.Value u4 v4 b -> Units.Value u5 v5 b -> c"
+      },
+      {
+        "name": "onBase6",
+        "comment": "",
+        "type": "(b -> b -> b -> b -> b -> b -> c) -> Units.Value u1 v1 b -> Units.Value u2 v2 b -> Units.Value u3 v3 b -> Units.Value u4 v4 b -> Units.Value u5 v5 b -> Units.Value u6 v6 b -> c"
+      },
+      {
+        "name": "toBase",
+        "comment": " Extract the base unit of a Value\n\n  (90 ~ minutes) |> toBase\n",
+        "type": "Units.Value u v b -> b"
+      },
+      {
+        "name": "~",
+        "comment": " Given some value v and a Unit construct a Value.\nWhat v means in terms of base, is defined by the Unit.\nIts precedence is 5, higher than (==) and lower than (+), (*)\n\n  (3 * 30 ~ minutes)\n",
+        "type": "v -> Units.Unit u v b -> Units.Value u v b",
+        "associativity": "non",
+        "precedence": 5
+      }
+    ],
+    "generated-with-elm-version": "0.17.1"
+  }
+]

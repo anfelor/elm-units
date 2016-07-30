@@ -6,14 +6,15 @@ module Units exposing (..)
 
 Create Values of a certain unit, that abstract over a base.
 
-## Types
+# Types
 @docs Value, Unit
 
 # Constructor, conversions and "destructor"
 @docs (~), as', toBase
 
-# Maps
-@docs map, map3, map4, map5, map6
+# Working with the base
+@docs map, map2, map3, map4, map5, map6
+    , onBase, onBase2, onBase3, onBase4, onBase5, onBase6
 
 -}
 
@@ -42,17 +43,23 @@ type alias Value unit value base =
 
 
 {-| Given some value v and a Unit construct a Value.
-What v means in terms of base, is defined by the Unit
+What v means in terms of base, is defined by the Unit.
+Its precedence is 5, higher than (==) and lower than (+), (*)
+
+  (3 * 30 ~ minutes)
 -}
-infix 5 ~
 (~) : v -> Unit u v b -> Value u v b
 (~) value unit =
   { value = value
   , unit = unit
   }
 
+infix 5 ~
+
 
 {-| Convert a Value to a different unit.
+
+  (90 ~ minutes) `as'` seconds
 -}
 as' : Value u1 v1 b -> Unit u2 v2 b -> Value u2 v2 b
 as' value unit =
@@ -62,6 +69,8 @@ as' value unit =
 
 
 {-| Extract the base unit of a Value
+
+  (90 ~ minutes) |> toBase
 -}
 toBase : Value u v b -> b
 toBase value = value.unit.unwrap value.value
@@ -96,6 +105,7 @@ map2 fn v1 v2 =
   }
 
 
+{-|-}
 map3
    : (b -> b -> b -> b) 
   -> Value u1 v1 b 
@@ -110,6 +120,7 @@ map3 fn v1 v2 v3 =
   }
 
 
+{-|-}
 map4 
    : (b -> b -> b -> b -> b) 
   -> Value u1 v1 b 
@@ -126,6 +137,7 @@ map4 fn v1 v2 v3 v4 =
   }
 
 
+{-|-}
 map5 
    : (b -> b -> b -> b -> b -> b) 
   -> Value u1 v1 b 
@@ -144,6 +156,7 @@ map5 fn v1 v2 v3 v4 v5 =
   }
 
 
+{-|-}
 map6 
    : (b -> b -> b -> b -> b -> b -> b) 
   -> Value u1 v1 b 
@@ -187,6 +200,7 @@ onBase2 fn v1 v2 =
      (toBase v2)
 
 
+{-|-}
 onBase3 
    : (b -> b -> b -> c)
   -> Value u1 v1 b
@@ -199,6 +213,7 @@ onBase3 fn v1 v2 v3 =
      (toBase v3)
 
 
+{-|-}
 onBase4 
    : (b -> b -> b -> b -> c)
   -> Value u1 v1 b
@@ -213,6 +228,7 @@ onBase4 fn v1 v2 v3 v4 =
      (toBase v4)
 
 
+{-|-}
 onBase5 
    : (b -> b -> b -> b -> b -> c)
   -> Value u1 v1 b
@@ -229,6 +245,7 @@ onBase5 fn v1 v2 v3 v4 v5 =
      (toBase v5)
 
 
+{-|-}
 onBase6 
    : (b -> b -> b -> b -> b -> b -> c)
   -> Value u1 v1 b
