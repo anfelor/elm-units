@@ -24,7 +24,7 @@ time =
     [ claim
         "Convert to base and back == identity"
       `that`
-        (\(f, u) -> f ::: milliseconds |> toBase)
+        (\(f, u) -> f ~ milliseconds |> toBase)
       `is`
         fst
       `for`

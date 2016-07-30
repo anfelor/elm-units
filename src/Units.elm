@@ -10,7 +10,7 @@ Create Values of a certain unit, that abstract over a base.
 @docs Value, Unit
 
 # Constructor, conversions and "destructor"
-@docs (:::), as', toBase
+@docs (~), as', toBase
 
 # Maps
 @docs map, map3, map4, map5, map6
@@ -22,7 +22,7 @@ Create Values of a certain unit, that abstract over a base.
 These should be hidden in your library,
 be sure not to export construct of your unit type.
    unit         The unit type
-   value        The value to be stored and used in the (:::) constructor
+   value        The value to be stored and used in the (~) constructor
    base         The base value all your Units can be converted to.
 -}
 type alias Unit unit value base =
@@ -44,8 +44,9 @@ type alias Value unit value base =
 {-| Given some value v and a Unit construct a Value.
 What v means in terms of base, is defined by the Unit
 -}
-(:::) : v -> Unit u v b -> Value u v b
-(:::) value unit =
+infix 5 ~
+(~) : v -> Unit u v b -> Value u v b
+(~) value unit =
   { value = value
   , unit = unit
   }

@@ -46,19 +46,19 @@ hours =
 
 millisecond : Time
 millisecond =
-  1.0 ::: milliseconds
+  1.0 ~ milliseconds
 
 second : Time
 second =
-  1.0 ::: seconds
+  1.0 ~ seconds
 
 minute : Time
 minute =
-  1.0 ::: minutes
+  1.0 ~ minutes
 
 hour : Time
 hour =
- 1.0 ::: hours
+ 1.0 ~ hours
 
 every : Time -> (Time.Time -> msg) -> Sub msg
 every time tagger =
