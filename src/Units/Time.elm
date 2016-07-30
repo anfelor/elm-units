@@ -1,43 +1,46 @@
 module Units.Time exposing 
-  (Time, milliseconds, seconds, minutes, hours
+  (Time, TimeUnit, milliseconds, seconds, minutes, hours
   , millisecond, second, minute, hour, every)
 
 import Units exposing (..)
 import Time
 
-type TimeUnit 
-    = Milliseconds
-    | Seconds
-    | Minutes
-    | Hours
+type TimeUnitInternal
+  = Milliseconds
+  | Seconds
+  | Minutes
+  | Hours
+
+type alias TimeUnit
+  = Unit TimeUnitInternal Float Float
 
 type alias Time =
   { value : Float
-  , unit : Unit TimeUnit Float Float
+  , unit : TimeUnit
   }
 
-milliseconds : Unit TimeUnit Float Float
+milliseconds : TimeUnit
 milliseconds =
   { unit = Milliseconds 
   , wrap = identity
   , unwrap = identity
   }
 
-seconds : Unit TimeUnit Float Float
+seconds : TimeUnit
 seconds =
   { unit = Seconds 
   , wrap = \v -> v / 1000
   , unwrap = \v -> v * 1000
   }
 
-minutes : Unit TimeUnit Float Float
+minutes : TimeUnit
 minutes =
   { unit = Minutes
   , wrap = \v -> v / 1000 / 60
   , unwrap = \v -> v * 1000 * 60
   }
 
-hours : Unit TimeUnit Float Float
+hours : TimeUnit
 hours =
   { unit = Hours
   , wrap = \v -> v / 1000 / 60 / 60

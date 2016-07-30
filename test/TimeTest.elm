@@ -11,8 +11,8 @@ import Maybe
 import Units exposing (..)
 import Units.Time exposing (..)
 
-units : Producer (Unit TimeUnit Float Float)
-units = map (
+units : Producer TimeUnit
+units = Check.Producer.map (
           \i -> Array.fromList [milliseconds, seconds, minutes, hours]
              |> Array.get i
              |> Maybe.withDefault milliseconds
