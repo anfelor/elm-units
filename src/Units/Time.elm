@@ -32,14 +32,12 @@ type TimeUnitInternal
   | Hours
 
 
-{-| The unit of time.
--}
-type alias TimeUnit
-  = Unit TimeUnitInternal Float Float
+{-|-}
+type alias TimeUnit =
+  Unit TimeUnitInternal Float Float
 
 
-{-| A Value for time.
-Uses milliseconds internally (but use `toBase` for extracting!)
+{-| Uses milliseconds internally (but use `toBase` for extracting!)
 -}
 type alias Time =
   { value : Float
@@ -47,7 +45,9 @@ type alias Time =
   }
 
 
-{-|-}
+{-| A unit:
+  (3 ~ milliseconds)
+-}
 milliseconds : TimeUnit
 milliseconds =
   { unit = Milliseconds 
@@ -109,7 +109,12 @@ hour =
  1.0 ~ hours
 
 
-{-|-}
+{-| Corresponds to the Time.every in core.
+Please note, that the Message function is not applied to a Value,
+but to the "native" Time, e. g. a float.
+
+  every (42 ~ minutes) Tick 
+-}
 every : Time -> (Time.Time -> msg) -> Sub msg
 every time tagger =
   Time.every (toBase <| time `as'` milliseconds) tagger
