@@ -82,7 +82,7 @@ map fn v1 =
 {-| Map over the bases of Values
 The resulting Value has the Unit of the first argument.
 This is so make partial application more convenient:
-`map2 fn v1` always has the unit of v1, no matter what you apply to it. 
+`map2 fn v1` always has the unit of v1, no matter what you apply to it.
 -}
 map2 
    : (b -> b -> b) 
@@ -162,3 +162,86 @@ map6 fn v1 v2 v3 v4 v5 v6 =
                                (v6.unit.unwrap (v6.value))
   , unit = v1.unit
   }
+
+
+
+{-| Apply a function to the base of a value.
+-}
+onBase 
+   : (b -> c)
+  -> Value u1 v1 b
+  -> c
+onBase fn v1 =
+  fn (toBase v1)
+
+
+{-| Apply a function to the bases of two values.
+-}
+onBase2 
+   : (b -> b -> c)
+  -> Value u1 v1 b
+  -> Value u2 v2 b
+  -> c
+onBase2 fn v1 v2 =
+  fn (toBase v1)
+     (toBase v2)
+
+
+onBase3 
+   : (b -> b -> b -> c)
+  -> Value u1 v1 b
+  -> Value u2 v2 b
+  -> Value u3 v3 b
+  -> c
+onBase3 fn v1 v2 v3 =
+  fn (toBase v1)
+     (toBase v2)
+     (toBase v3)
+
+
+onBase4 
+   : (b -> b -> b -> b -> c)
+  -> Value u1 v1 b
+  -> Value u2 v2 b
+  -> Value u3 v3 b
+  -> Value u4 v4 b
+  -> c
+onBase4 fn v1 v2 v3 v4 =
+  fn (toBase v1)
+     (toBase v2)
+     (toBase v3)
+     (toBase v4)
+
+
+onBase5 
+   : (b -> b -> b -> b -> b -> c)
+  -> Value u1 v1 b
+  -> Value u2 v2 b
+  -> Value u3 v3 b
+  -> Value u4 v4 b
+  -> Value u5 v5 b
+  -> c
+onBase5 fn v1 v2 v3 v4 v5 =
+  fn (toBase v1)
+     (toBase v2)
+     (toBase v3)
+     (toBase v4)
+     (toBase v5)
+
+
+onBase6 
+   : (b -> b -> b -> b -> b -> b -> c)
+  -> Value u1 v1 b
+  -> Value u2 v2 b
+  -> Value u3 v3 b
+  -> Value u4 v4 b
+  -> Value u5 v5 b
+  -> Value u6 v6 b
+  -> c
+onBase6 fn v1 v2 v3 v4 v5 v6 =
+  fn (toBase v1)
+     (toBase v2)
+     (toBase v3)
+     (toBase v4)
+     (toBase v5)
+     (toBase v6)
